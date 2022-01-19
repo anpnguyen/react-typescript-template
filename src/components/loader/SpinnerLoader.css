@@ -1,0 +1,27 @@
+.spinner-loader__wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 25em;
+    min-height: 25em;
+    border-spacing: 0;
+}
+
+.spinner-loader {
+    border: 0.625rem solid var(--second-bg);
+    border-top: 0.625rem solid var(--main-color);
+    border-radius: 50%;
+    width: 6.25em;
+    height: 6.25em;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
