@@ -1,4 +1,5 @@
 import React from 'react';
+import { SpinnerLoader } from '../components/loader/SpinnerLoader';
 import { Table } from '../components/table/Table';
 import { latestOrders } from '../data/dummy-orders';
 import { useGetOrders } from '../utils/hooks/query/use-queries';
@@ -29,12 +30,10 @@ const Orders = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="card">
-                        <div className="card__body">
-                            {order.length === 0 ? (
-                                <div>
-                                    <h2>Loading...</h2>
-                                </div>
-                            ) : (
+                        {order.length === 0 ? (
+                            <SpinnerLoader />
+                        ) : (
+                            <div className="card__body">
                                 <Table
                                     headData={latestOrders.header}
                                     renderHead={(
@@ -47,8 +46,8 @@ const Orders = () => {
                                         index: number
                                     ) => renderOrderBody(item, index)}
                                 />
-                            )}
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
