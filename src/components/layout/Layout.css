@@ -8,6 +8,10 @@
     min-height: 100vh;
 }
 
+.layout__content.true {
+    padding-left: 0;
+}
+
 .layout__content-main {
     padding: 30px;
 }
