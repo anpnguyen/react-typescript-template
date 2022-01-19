@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { RouteLocation } from '../../interfaces/route_location.interface';
 import { selectSidebarMenuState } from '../../redux/sidebar-menu/sidebar-menu-slice';
 import { MainRoutes } from '../../routes/main-routes';
-import { useAppSelector } from '../../utils/hooks/redux-toolkit-hooks';
+import { useAppSelector } from '../../utils/hooks/redux/redux-toolkit-hooks';
 import { Sidebar } from '../sidebar/Sidebar';
 
 import './Layout.css';

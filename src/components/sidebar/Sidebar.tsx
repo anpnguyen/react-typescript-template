@@ -12,7 +12,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
     useAppDispatch,
     useAppSelector,
-} from './../../utils/hooks/redux-toolkit-hooks';
+} from '../../utils/hooks/redux/redux-toolkit-hooks';
 
 import { RouteLocation } from '../../interfaces/route_location.interface';
 import {

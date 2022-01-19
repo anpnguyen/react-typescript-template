@@ -10,7 +10,7 @@ import { faTh } from '@fortawesome/free-solid-svg-icons';
 import {
     useAppDispatch,
     useAppSelector,
-} from '../../../utils/hooks/redux-toolkit-hooks';
+} from '../../../utils/hooks/redux/redux-toolkit-hooks';
 import {
     openSidebarMenu,
     selectSidebarMenuState,
