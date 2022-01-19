@@ -7,8 +7,14 @@ import { MenuDropdown } from '../../menu-dropdown/MenuDropdown';
 import user_image from '../../../assets/images/shiba_inu_avatar.png';
 import './TopNavbar.css';
 import { faTh } from '@fortawesome/free-solid-svg-icons';
-import { useAppDispatch } from '../../../utils/hooks/redux-toolkit-hooks';
-import { openSidebarMenu } from '../../../redux/sidebar-menu/sidebar-menu-slice';
+import {
+    useAppDispatch,
+    useAppSelector,
+} from '../../../utils/hooks/redux-toolkit-hooks';
+import {
+    openSidebarMenu,
+    selectSidebarMenuState,
+} from '../../../redux/sidebar-menu/sidebar-menu-slice';
 
 const current_user = {
     display_name: 'JSD User',
@@ -42,12 +48,13 @@ const UserMenu = (item: NavbarMenuContent, index: number): JSX.Element => {
     );
 };
 
-export const TopNavBar = (props: any): JSX.Element => {
+export const TopNavBar = (): JSX.Element => {
+    const isOpen = useAppSelector(selectSidebarMenuState);
     const dispatch = useAppDispatch();
     return (
-        <div className="top-navbar">
+        <div className={'top-navbar ' + isOpen}>
             <div
-                className="top-navbar__responsive-button"
+                className={'top-navbar__responsive-button ' + isOpen}
                 onClick={() => dispatch(openSidebarMenu())}
             >
                 <FontAwesomeIcon icon={faTh} />

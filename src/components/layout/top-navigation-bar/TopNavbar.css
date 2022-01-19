@@ -2,8 +2,12 @@
     padding: 30px;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: space-between;
     height: var(--topnav-height);
+}
+
+.top-navbar.true {
+    justify-content: right;
 }
 
 .top-navbar__right {
@@ -56,6 +60,14 @@
     margin-right: 20px;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+.top-navbar__responsive-button:hover {
+    color: var(--main-color);
+}
+
+.top-navbar__responsive-button.true {
+    display: none;
 }
 
 @media only screen and (min-width: 780px) {
