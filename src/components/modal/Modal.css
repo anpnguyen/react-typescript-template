@@ -1,51 +1,25 @@
-.modal__wrapper {
-    width: 100%;
-    height: 80vh;
+.modal__wrapper-active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 30px;
     margin-bottom: 30px;
-    background-color: var(--main-bg);
-    box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
-    opacity: 0;
-
-    /* position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
-    pointer-events: none; */
-}
-
-.modal__wrapper.true {
+    background-color: rgba(0, 0, 0, 0.15);
     opacity: 1;
     pointer-events: visible;
   }
   
-  .modal__wrapper.false {
+  .modal__wrapper-notactive {
     opacity: 0;
   }
-
-  .modal__inner {
-    width: 60%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    margin: 200px auto;
-    transition: all 0.3s ease-in-out;
-    transform: translateY(-200px);
-}
   
-  .modal__wrapper.true .modal__inner {
+  .modal__wrapper-active .modal__inner {
     transform: translateY(0);
   }
   
-  .modal__wrapper.false .modal__inner {
+  .modal__wrapper-notactive .modal__inner {
     transform: translateY(-200px);
   }
+
 
