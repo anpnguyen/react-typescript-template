@@ -1,0 +1,30 @@
+.button__wrapper {
+    width: 10.5em;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.button {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+}
+
+.button > p {
+    text-transform: capitalize;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.button__icon {
+    margin-right: 10px;
+    font-size: 1.75em;
+}
+
+
+.button:hover {
+    color: var(--main-color);
+}
