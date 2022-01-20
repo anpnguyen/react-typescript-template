@@ -1,9 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import sidebarMenuReducer from '../sidebar-menu/sidebar-menu-slice';
+import orderModalReducer from '../order-modal/order-modal';
 
 export const store = configureStore({
     reducer: {
         sidebarMenu: sidebarMenuReducer,
+        orderModal: orderModalReducer,
     },
     devTools: true,
 });

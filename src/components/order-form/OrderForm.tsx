@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { deactivateOrderModal } from '../../redux/order-modal/order-modal';
+import { useAppDispatch } from '../../utils/hooks/redux/redux-toolkit-hooks';
 import './OrderForm.css';
 
 export interface IOrderFormData {
@@ -14,6 +16,12 @@ interface IModalProps<T> {
 }
 
 export const OrderForm = (props: IModalProps<IOrderFormData>) => {
+    const dispatch = useAppDispatch();
+
+    function handleCloseOrderForm(): void {
+        dispatch(deactivateOrderModal());
+    }
+
     const [orderData, setOrderData] = useState<IOrderFormData>({
         name: '',
         email: '',
@@ -84,7 +92,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                     <div className="form__button__container">
                         <button
                             className="form__button"
-                            onClick={props.handleCloseOrderForm}
+                            onClick={handleCloseOrderForm}
                         >
                             Cancel
                         </button>

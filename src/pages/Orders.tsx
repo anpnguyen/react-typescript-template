@@ -4,7 +4,15 @@ import { SpinnerLoader } from '../components/loader/SpinnerLoader';
 import { Modal } from '../components/modal/Modal';
 import { Table } from '../components/table/Table';
 import { latestOrders } from '../data/dummy-orders';
-import { useGetOrders } from '../utils/hooks/query/use-queries';
+//import { useGetOrders } from '../utils/hooks/query/use-queries';
+import {
+    useAppDispatch,
+    useAppSelector,
+} from '../utils/hooks/redux/redux-toolkit-hooks';
+import {
+    activateOrderModal,
+    selectOrderModalState,
+} from '../redux/order-modal/order-modal';
 import {
     IRenderOrderBodyProps,
     IRenderOrderHeaderProps,
@@ -24,57 +32,57 @@ const renderOrderBody = (item: IRenderOrderBodyProps, index: number) => (
 );
 
 const Orders = () => {
-    const order = useGetOrders();
-    //const order: any = [];
+    const [order, setOrder] = useState([]);
 
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    async function getSimulator() {
+        const data: any = latestOrders.body;
+        await setTimeout(() => setOrder(data), 3000);
+    }
+
+    getSimulator();
+
+    //const order = useGetOrders();
+
+    const dispatch = useAppDispatch();
+    const modalOpen: boolean = useAppSelector(selectOrderModalState);
 
     function handleOpenOrderForm(): void {
-        setModalOpen(true);
-    }
-    function handleCloseOrderForm(): void {
-        setModalOpen(false);
+        dispatch(activateOrderModal());
     }
 
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h2 className="page-header">orders</h2>
-                <div onClick={handleOpenOrderForm}>
-                    <Button />
-                </div>
+                {!modalOpen ? (
+                    <div onClick={handleOpenOrderForm}>
+                        <Button />
+                    </div>
+                ) : null}
             </div>
-
             <div className="row">
                 <div className="col-12">
                     <div className="card">
-                        {order.length === 0 ? (
-                            <SpinnerLoader />
-                        ) : (
-                            <div className="card__body">
-                                {modalOpen ? (
-                                    <Modal
-                                        modalOpen={modalOpen}
-                                        handleCloseOrderForm={
-                                            handleCloseOrderForm
-                                        }
-                                    />
-                                ) : (
-                                    <Table
-                                        headData={latestOrders.header}
-                                        renderHead={(
-                                            item: IRenderOrderHeaderProps,
-                                            index: number
-                                        ) => renderOrderHead(item, index)}
-                                        bodyData={order}
-                                        renderBody={(
-                                            item: IRenderOrderBodyProps,
-                                            index: number
-                                        ) => renderOrderBody(item, index)}
-                                    />
-                                )}
-                            </div>
-                        )}
+                        <div className="card__body">
+                            {!order ||
+                                (order.length === 0 ? <SpinnerLoader /> : null)}
+                            {!order || order.length === 0 ? null : modalOpen ? (
+                                <Modal />
+                            ) : (
+                                <Table
+                                    headData={latestOrders.header}
+                                    renderHead={(
+                                        item: IRenderOrderHeaderProps,
+                                        index: number
+                                    ) => renderOrderHead(item, index)}
+                                    bodyData={order}
+                                    renderBody={(
+                                        item: IRenderOrderBodyProps,
+                                        index: number
+                                    ) => renderOrderBody(item, index)}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
