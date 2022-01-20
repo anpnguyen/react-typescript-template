@@ -50,6 +50,8 @@ const UserMenu = (item: NavbarMenuContent, index: number): JSX.Element => {
 
 export const TopNavBar = (): JSX.Element => {
     const isOpen = useAppSelector(selectSidebarMenuState);
+    console.log('isOpen', isOpen);
+
     const dispatch = useAppDispatch();
     return (
         <div className={'top-navbar ' + isOpen}>

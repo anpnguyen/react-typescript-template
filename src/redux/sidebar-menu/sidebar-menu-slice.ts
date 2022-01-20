@@ -10,7 +10,7 @@ const initialState: SidebarMenuState = {
 };
 
 export const sidebarMenuSlice = createSlice({
-    name: 'orderModal',
+    name: 'sidebarMenu',
     initialState: initialState,
     reducers: {
         openSidebarMenu: (state) => {

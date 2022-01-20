@@ -1,4 +1,15 @@
-.sidebar {
+.sidebar-open {
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow);
+    transition: left 0.5s var(--transition-cubic);
+}
+
+.sidebar-close {
     min-width: var(--sidebar-width);
     height: 100vh;
     position: fixed;
@@ -7,11 +18,6 @@
     background-color: var(--main-bg);
     box-shadow: var(--box-shadow);
     transition: left 0.5s var(--transition-cubic);
-}
-
-.sidebar.true {
-    z-index: 9999;
-    left: 0;
 }
 
 

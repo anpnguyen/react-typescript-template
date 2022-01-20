@@ -47,9 +47,10 @@ export const Sidebar = (props: RouteLocation): JSX.Element => {
 
     const dispatch = useAppDispatch();
     const isOpen = useAppSelector(selectSidebarMenuState);
+    const sidebarClass = isOpen ? '-open' : '-close';
 
     return (
-        <div className={'sidebar ' + isOpen}>
+        <div className={'sidebar' + sidebarClass}>
             <div className="sidebar__logo">
                 <img src={logo} alt="website logo"></img>
                 <button
