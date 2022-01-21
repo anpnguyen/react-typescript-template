@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { deactivateOrderModal } from '../../redux/order-modal/order-modal';
+import { axiosPostHelperMethod } from '../../utils/hooks/http/axios-post-helper';
 import { useAppDispatch } from '../../utils/hooks/redux/redux-toolkit-hooks';
 import './OrderForm.css';
 
@@ -39,7 +40,13 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
     const handleSubmit = (event: { preventDefault: () => void }) => {
         // prevents the submit button from refreshing the page
         event.preventDefault();
-        props.addContact(orderData);
+
+        axiosPostHelperMethod<IOrderFormData>(
+            'http://localhost:7000/api/order/',
+            orderData
+        );
+
+        //props.addContact(orderData);
         setOrderData({ name: '', email: '', phone: 0, quantity: 0 });
     };
     return (

@@ -4,7 +4,7 @@ import { SpinnerLoader } from '../components/loader/SpinnerLoader';
 import { Modal } from '../components/modal/Modal';
 import { Table } from '../components/table/Table';
 import { latestOrders } from '../data/dummy-orders';
-//import { useGetOrders } from '../utils/hooks/query/use-queries';
+import { useGetOrders } from '../utils/hooks/query/use-queries';
 import {
     useAppDispatch,
     useAppSelector,
@@ -32,16 +32,16 @@ const renderOrderBody = (item: IRenderOrderBodyProps, index: number) => (
 );
 
 const Orders = () => {
-    const [order, setOrder] = useState([]);
+    // const [order, setOrder] = useState([]);
 
-    async function getSimulator() {
-        const data: any = latestOrders.body;
-        await setTimeout(() => setOrder(data), 3000);
-    }
+    // async function getSimulator() {
+    //     const data: any = latestOrders.body;
+    //     await setTimeout(() => setOrder(data), 3000);
+    // }
 
-    getSimulator();
+    // getSimulator();
 
-    //const order = useGetOrders();
+    const order = useGetOrders();
 
     const dispatch = useAppDispatch();
     const modalOpen: boolean = useAppSelector(selectOrderModalState);
