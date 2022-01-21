@@ -1,4 +1,4 @@
-.modal__wrapper-active{
+.modal__wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,20 +6,24 @@
     margin-bottom: 30px;
     border-radius: var(--border-radius);
     background-color: rgba(0, 0, 0, 0.15);
-    opacity: 1;
     pointer-events: visible;
   }
+
+  .modal__wrapper .active {
+    opacity: 1;
+  }
   
-  .modal__wrapper-notactive {
+  .modal__wrapper .nonactive {
     opacity: 0;
   }
   
-  .modal__wrapper-active .modal__inner {
+  .modal__wrapper .active .modal__inner {
     transform: translateY(0);
   }
   
-  .modal__wrapper-notactive .modal__inner {
+  .modal__wrapper .nonactive .modal__inner {
     transform: translateY(-200px);
+    display: none;
   }
 
 

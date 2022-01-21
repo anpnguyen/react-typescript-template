@@ -7,7 +7,7 @@ import './Modal.css';
 export const Modal = (props: any) => {
     const [orderFormData, setOrderFormData] = useState<IOrderFormData[]>([]);
     const modalOpen: boolean = useAppSelector(selectOrderModalState);
-    const modalClass = modalOpen ? '-active' : '-notactive';
+    const modalClass = modalOpen ? ' .active' : ' .nonactive';
 
     function addOrderFormData(orderFormData: IOrderFormData): void {
         setOrderFormData([orderFormData]);

@@ -6,7 +6,7 @@
     height: var(--topnav-height);
 }
 
-.top-navbar.true {
+.top-navbar .open {
     justify-content: right;
 }
 
@@ -66,7 +66,7 @@
     color: var(--main-color);
 }
 
-.top-navbar__responsive-button.true {
+.top-navbar__responsive-button .open {
     display: none;
 }
 
