@@ -3,6 +3,7 @@ import {
     faBox,
     faUserFriends,
     faCartPlus,
+    faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const SidebarRouteData = [
@@ -14,7 +15,7 @@ export const SidebarRouteData = [
     {
         title: 'Orders',
         route: '/orders',
-        icon: faCartPlus,
+        icon: faShoppingCart,
     },
     {
         title: 'Customers',
