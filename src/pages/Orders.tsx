@@ -18,16 +18,34 @@ import {
     IRenderOrderHeaderProps,
 } from '../utils/interfaces/order/order.interface';
 
-const renderOrderHead = (item: IRenderOrderHeaderProps, index: number) => (
-    <th key={index}>{item}</th>
-);
+const renderOrderHead = (
+    item: IRenderOrderHeaderProps,
+    index: number
+): JSX.Element => <th key={index}>{item}</th>;
 
-const renderOrderBody = (item: IRenderOrderBodyProps, index: number) => (
+const renderOrderBody = (
+    item: IRenderOrderBodyProps,
+    index: number,
+    handleEpandRow: (arg1: number) => void,
+    expandState: any[],
+    expandedRows: any
+): JSX.Element => (
     <tr key={index}>
         <td>{item._id}</td>
         <td>{item.name}</td>
         <td>{item.phone}</td>
         <td>{item.quantity}</td>
+        <td>
+            <button onClick={() => handleEpandRow(index)}>
+                {expandState[index] ? 'Hide' : 'Show'}
+                <p>Detail</p>
+            </button>
+        </td>
+        {expandedRows.includes(index) ? (
+            <td>
+                <p>Content</p>
+            </td>
+        ) : null}
     </tr>
 );
 
@@ -40,6 +58,32 @@ const Orders = () => {
     // }
 
     // getSimulator();
+
+    const [expandedRows, setExpandedRows] = useState<number[]>([]);
+    const [expandState, setExpandState] = useState<any>({});
+
+    console.log('expandState', expandState);
+
+    /**
+     * This function gets called when show/hide link is clicked.
+     */
+    const handleExpandRow = (dataId: number) => {
+        const currentExpandedRows = expandedRows;
+        const isRowExpanded = currentExpandedRows.includes(dataId);
+
+        let obj = {};
+        //@ts-ignore
+        isRowExpanded ? (obj[dataId] = false) : (obj[dataId] = true);
+        setExpandState(obj);
+
+        // If the row is expanded, we are here to hide it. Hence remove
+        // it from the state variable. Otherwise add to it.
+        const newExpandedRows = isRowExpanded
+            ? currentExpandedRows.filter((id) => id !== dataId)
+            : currentExpandedRows.concat(dataId);
+
+        setExpandedRows(newExpandedRows);
+    };
 
     const order = useGetOrders();
 
@@ -79,7 +123,15 @@ const Orders = () => {
                                     renderBody={(
                                         item: IRenderOrderBodyProps,
                                         index: number
-                                    ) => renderOrderBody(item, index)}
+                                    ) =>
+                                        renderOrderBody(
+                                            item,
+                                            index,
+                                            handleExpandRow,
+                                            expandState,
+                                            expandedRows
+                                        )
+                                    }
                                 />
                             )}
                         </div>
