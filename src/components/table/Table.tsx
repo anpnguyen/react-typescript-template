@@ -4,6 +4,7 @@ import './Table.css';
 export const Table = (props: any): JSX.Element => {
     const initDataShow = props.bodyData;
     const [dataShow, setDataShow] = useState(initDataShow);
+
     return (
         <div>
             <div className="table-wrapper">
@@ -20,8 +21,19 @@ export const Table = (props: any): JSX.Element => {
                     ) : null}
                     {props.bodyData && props.renderBody ? (
                         <tbody>
-                            {dataShow.map((item: string, index: number) =>
-                                props.renderBody(item, index)
+                            {dataShow.map(
+                                (
+                                    item: string,
+                                    index: number,
+                                    handleEpandRow: any,
+                                    expandState: any
+                                ) =>
+                                    props.renderBody(
+                                        item,
+                                        index,
+                                        handleEpandRow,
+                                        expandState
+                                    )
                             )}
                         </tbody>
                     ) : null}
