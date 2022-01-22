@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { deactivateOrderModal } from '../../redux/order-modal/order-modal';
 import { axiosPostHelperMethod } from '../../utils/hooks/http/axios-post-helper';
 import { useAppDispatch } from '../../utils/hooks/redux/redux-toolkit-hooks';
@@ -18,6 +19,8 @@ interface IModalProps<T> {
 
 export const OrderForm = (props: IModalProps<IOrderFormData>) => {
     const dispatch = useAppDispatch();
+
+    const history = useHistory();
 
     function handleCloseOrderForm(): void {
         dispatch(deactivateOrderModal());
@@ -48,6 +51,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
 
         //props.addContact(orderData);
         setOrderData({ name: '', email: '', phone: 0, quantity: 0 });
+        history.replace('/orders');
     };
     return (
         <div className="form__wrapper">
@@ -97,12 +101,9 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                 </div>
                 <div className="button_form__wrapper">
                     <div className="form__button__container">
-                        <button
-                            className="form__button"
-                            onClick={handleCloseOrderForm}
-                        >
-                            Cancel
-                        </button>
+                        <Link to={'/orders'}>
+                            <button className="form__button">Cancel</button>
+                        </Link>
                     </div>
                     <div className="form__button__container">
                         <button
