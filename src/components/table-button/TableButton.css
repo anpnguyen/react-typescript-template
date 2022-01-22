@@ -1,0 +1,40 @@
+.table-button__wrapper {
+    max-width: 40%;
+    margin:auto;
+    display:block;
+    padding: 10px;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow);
+    border-radius: calc( var(--border-radius) - 10px);
+}
+
+.table-button__wrapper.Show {
+    background-color: var(--second-color-green);
+}
+
+.table-button__wrapper.Hide {
+    background-color: var(--second-color-orange);
+}
+
+.table-button__wrapper.Update {
+    background-color: var( --second-color-blue);
+}
+
+.table-button__wrapper.Delete {
+    background-color: var(--second-color-red);
+}
+
+.table-button {
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    color: var(--main-bg);
+}
+
+.table-button > p {
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
