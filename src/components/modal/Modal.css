@@ -3,27 +3,16 @@
     justify-content: center;
     align-items: center;
     padding: 30px;
+    margin: auto;
     margin-bottom: 30px;
     border-radius: var(--border-radius);
     background-color: rgba(0, 0, 0, 0.15);
     pointer-events: visible;
   }
 
-  .modal__wrapper .active {
-    opacity: 1;
-  }
+.modal__inner {
+  display: flex;
+} 
   
-  .modal__wrapper .nonactive {
-    opacity: 0;
-  }
-  
-  .modal__wrapper .active .modal__inner {
-    transform: translateY(0);
-  }
-  
-  .modal__wrapper .nonactive .modal__inner {
-    transform: translateY(-200px);
-    display: none;
-  }
 
 

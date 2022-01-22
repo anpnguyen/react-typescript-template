@@ -13,10 +13,8 @@ export const Modal = (props: any) => {
         setOrderFormData([orderFormData]);
     }
 
-    console.log('orderFormData', orderFormData);
-
     return (
-        <div className={'modal__wrapper' + modalClass}>
+        <div className={'modal__wrapper'}>
             <div className="modal__inner">
                 <OrderForm
                     handleCloseOrderForm={props.handleCloseOrderForm}
