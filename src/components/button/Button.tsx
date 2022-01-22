@@ -6,13 +6,15 @@ interface IButtonProps {
     handleCloseOrderForm?(): void;
 }
 
-export const Button = (props: IButtonProps, title: string): JSX.Element => {
+export const Button = (): JSX.Element => {
     return (
         <div className="button__wrapper">
-            <button className="button" onClick={props.handleCloseOrderForm}>
+            <button className="button">
                 <FontAwesomeIcon icon={faCartPlus} className="button__icon" />
                 <p>Add order</p>
             </button>
         </div>
     );
 };
+
+//props.handleCloseOrderForm
