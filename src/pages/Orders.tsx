@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../components/button/Button';
 import { SpinnerLoader } from '../components/loader/SpinnerLoader';
-import { Modal } from '../components/modal/Modal';
 import { Table } from '../components/table/Table';
 import { latestOrders } from '../data/dummy-orders';
 import { useGetOrders } from '../utils/hooks/query/use-queries';
@@ -18,6 +17,8 @@ import {
     IRenderOrderHeaderProps,
 } from '../utils/interfaces/order/order.interface';
 import { TableButton } from '../components/table-button/TableButton';
+import { axiosDeleteHelperMethod } from '../utils/hooks/http/axios-delete-helper';
+import { Link } from 'react-router-dom';
 
 const renderOrderHead = (
     item: IRenderOrderHeaderProps,
@@ -30,53 +31,71 @@ const renderOrderBody = (
     handleExpandRow: (dataId: string) => void,
     expandState: any[],
     expandedRows: string | string[]
-): JSX.Element => (
-    <React.Fragment key={index}>
-        <tr>
-            <td>{item._id}</td>
-            <td>{item.name}</td>
-            <td>
-                <TableButton
-                    title={`${expandState[index] ? 'Hide' : 'Show'}`}
-                    onClick={() => handleExpandRow(item._id)}
-                />
-            </td>
-            <td>
-                <TableButton title="Delete" />
-            </td>
-        </tr>
-        {expandedRows.includes(item._id) ? (
-            <>
-                <tr>
-                    <td>
-                        <p>Phone: {item.phone}</p>
-                    </td>
-                    <td>
-                        <p>Quantity: {item.quantity}</p>
-                    </td>
-                    <td>
-                        <TableButton title="Update" />
-                    </td>
-                </tr>
-            </>
-        ) : null}
-    </React.Fragment>
-);
+): JSX.Element => {
+    async function handleDelete(): Promise<void> {
+        try {
+            await axiosDeleteHelperMethod<IRenderOrderBodyProps>(
+                'http://localhost:7000/api/order/',
+                item._id
+            );
+            window.location.reload();
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
+    return (
+        <React.Fragment key={index}>
+            <tr>
+                <td>{item._id}</td>
+                <td>{item.name}</td>
+                <td>
+                    <TableButton
+                        title={`${
+                            expandState[item._id as unknown as number]
+                                ? 'Hide'
+                                : 'Show'
+                        }`}
+                        onClick={() => handleExpandRow(item._id)}
+                    />
+                </td>
+                <td>
+                    <TableButton title="Delete" onClick={handleDelete} />
+                </td>
+            </tr>
+            {expandedRows.includes(item._id) ? (
+                <>
+                    <tr>
+                        <td>
+                            <p>Phone: {item.phone}</p>
+                        </td>
+                        <td>
+                            <p>Quantity: {item.quantity}</p>
+                        </td>
+                        <td></td>
+                        <td>
+                            <TableButton title="Update" />
+                        </td>
+                    </tr>
+                </>
+            ) : null}
+        </React.Fragment>
+    );
+};
 
 const Orders = () => {
-    const [order, setOrder] = useState([]);
+    //const [order, setOrder] = useState([]);
 
     // TO fetch from the actual API
     // Use this method
-    // const order = useGetOrders();
+    const order = useGetOrders();
 
     //Else use the mocked network helper function
-    async function getSimulator() {
-        const data: any = latestOrders.body;
-        await setTimeout(() => setOrder(data), 1000);
-    }
+    // async function getSimulator() {
+    //     const data: any = latestOrders.body;
+    //     await setTimeout(() => setOrder(data), 1000);
+    // }
 
-    getSimulator();
+    // getSimulator();
 
     const [expandedRows, setExpandedRows] = useState<string[]>([]);
     const [expandState, setExpandState] = useState<any>({});
@@ -108,47 +127,45 @@ const Orders = () => {
     function handleOpenOrderForm(): void {
         dispatch(activateOrderModal());
     }
-
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h2 className="page-header">orders</h2>
-                {!modalOpen ? (
-                    <div onClick={handleOpenOrderForm}>
+                <div>
+                    <Link to="/order-form">
                         <Button />
-                    </div>
-                ) : null}
+                    </Link>
+                </div>
             </div>
             <div className="row">
                 <div className="col-12">
                     <div className="card">
                         <div className="card__body">
                             {!order ||
-                                (order.length === 0 ? <SpinnerLoader /> : null)}
-                            {!order || order.length === 0 ? null : modalOpen ? (
-                                <Modal />
-                            ) : (
-                                <Table
-                                    headData={latestOrders.header}
-                                    renderHead={(
-                                        item: IRenderOrderHeaderProps,
-                                        index: number
-                                    ) => renderOrderHead(item, index)}
-                                    bodyData={order}
-                                    renderBody={(
-                                        item: IRenderOrderBodyProps,
-                                        index: number
-                                    ) =>
-                                        renderOrderBody(
-                                            item,
-                                            index,
-                                            handleExpandRow,
-                                            expandState,
-                                            expandedRows
-                                        )
-                                    }
-                                />
-                            )}
+                                (order.length === 0 ? (
+                                    <SpinnerLoader />
+                                ) : (
+                                    <Table
+                                        headData={latestOrders.header}
+                                        renderHead={(
+                                            item: IRenderOrderHeaderProps,
+                                            index: number
+                                        ) => renderOrderHead(item, index)}
+                                        bodyData={order}
+                                        renderBody={(
+                                            item: IRenderOrderBodyProps,
+                                            index: number
+                                        ) =>
+                                            renderOrderBody(
+                                                item,
+                                                index,
+                                                handleExpandRow,
+                                                expandState,
+                                                expandedRows
+                                            )
+                                        }
+                                    />
+                                ))}
                         </div>
                     </div>
                 </div>
