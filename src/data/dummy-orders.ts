@@ -1,5 +1,5 @@
 export const latestOrders = {
-    header: ['order id', 'name', 'phone', 'quantity'],
+    header: ['order id', 'name', 'details', 'delete'],
     body: [
         {
             _id: '#OD1111',

@@ -6,7 +6,7 @@ interface IButtonProps {
     handleCloseOrderForm?(): void;
 }
 
-export const Button = (props: IButtonProps): JSX.Element => {
+export const Button = (props: IButtonProps, title: string): JSX.Element => {
     return (
         <div className="button__wrapper">
             <button className="button" onClick={props.handleCloseOrderForm}>
