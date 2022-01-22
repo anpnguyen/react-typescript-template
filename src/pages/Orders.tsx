@@ -17,6 +17,7 @@ import {
     IRenderOrderBodyProps,
     IRenderOrderHeaderProps,
 } from '../utils/interfaces/order/order.interface';
+import { TableButton } from '../components/table-button/TableButton';
 
 const renderOrderHead = (
     item: IRenderOrderHeaderProps,
@@ -26,50 +27,66 @@ const renderOrderHead = (
 const renderOrderBody = (
     item: IRenderOrderBodyProps,
     index: number,
-    handleEpandRow: (arg1: number) => void,
+    handleExpandRow: (dataId: string) => void,
     expandState: any[],
-    expandedRows: any
+    expandedRows: string | string[]
 ): JSX.Element => (
-    <tr key={index}>
-        <td>{item._id}</td>
-        <td>{item.name}</td>
-        <td>{item.phone}</td>
-        <td>{item.quantity}</td>
-        <td>
-            <button onClick={() => handleEpandRow(index)}>
-                {expandState[index] ? 'Hide' : 'Show'}
-                <p>Detail</p>
-            </button>
-        </td>
-        {expandedRows.includes(index) ? (
+    <React.Fragment key={index}>
+        <tr>
+            <td>{item._id}</td>
+            <td>{item.name}</td>
             <td>
-                <p>Content</p>
+                <TableButton
+                    title={`${expandState[index] ? 'Hide' : 'Show'}`}
+                    onClick={() => handleExpandRow(item._id)}
+                />
             </td>
+            <td>
+                <TableButton title="Delete" />
+            </td>
+        </tr>
+        {expandedRows.includes(item._id) ? (
+            <>
+                <tr>
+                    <td>
+                        <p>Phone: {item.phone}</p>
+                    </td>
+                    <td>
+                        <p>Quantity: {item.quantity}</p>
+                    </td>
+                    <td>
+                        <TableButton title="Update" />
+                    </td>
+                </tr>
+            </>
         ) : null}
-    </tr>
+    </React.Fragment>
 );
 
 const Orders = () => {
-    // const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState([]);
 
-    // async function getSimulator() {
-    //     const data: any = latestOrders.body;
-    //     await setTimeout(() => setOrder(data), 3000);
-    // }
+    // TO fetch from the actual API
+    // Use this method
+    // const order = useGetOrders();
 
-    // getSimulator();
+    //Else use the mocked network helper function
+    async function getSimulator() {
+        const data: any = latestOrders.body;
+        await setTimeout(() => setOrder(data), 1000);
+    }
 
-    const [expandedRows, setExpandedRows] = useState<number[]>([]);
+    getSimulator();
+
+    const [expandedRows, setExpandedRows] = useState<string[]>([]);
     const [expandState, setExpandState] = useState<any>({});
-
-    console.log('expandState', expandState);
 
     /**
      * This function gets called when show/hide link is clicked.
      */
-    const handleExpandRow = (dataId: number) => {
-        const currentExpandedRows = expandedRows;
-        const isRowExpanded = currentExpandedRows.includes(dataId);
+    const handleExpandRow = (dataId: string) => {
+        const currentExpandedRows: string[] = expandedRows;
+        const isRowExpanded: boolean = currentExpandedRows.includes(dataId);
 
         let obj = {};
         //@ts-ignore
@@ -78,14 +95,12 @@ const Orders = () => {
 
         // If the row is expanded, we are here to hide it. Hence remove
         // it from the state variable. Otherwise add to it.
-        const newExpandedRows = isRowExpanded
-            ? currentExpandedRows.filter((id) => id !== dataId)
+        const newExpandedRows: string[] = isRowExpanded
+            ? currentExpandedRows.filter((id: string) => id !== dataId)
             : currentExpandedRows.concat(dataId);
 
         setExpandedRows(newExpandedRows);
     };
-
-    const order = useGetOrders();
 
     const dispatch = useAppDispatch();
     const modalOpen: boolean = useAppSelector(selectOrderModalState);
