@@ -2,11 +2,11 @@ import axios from 'axios';
 
 export async function axiosPostHelperMethod<T>(
     path: string,
-    postData: T
+    postData?: T
 ): Promise<any> {
     try {
         const response = await axios.post<T>(path, postData);
-        console.log('POST REQUEST', response.data);
+        //console.log('POST REQUEST', response.data);
     } catch (error: any) {
         if (error.response) {
             // The request was made and the server responded with a status code
