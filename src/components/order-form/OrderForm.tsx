@@ -1,61 +1,54 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { deactivateOrderModal } from '../../redux/order-modal/order-modal';
-import { axiosPostHelperMethod } from '../../utils/hooks/http/axios-post-helper';
-import { useAppDispatch } from '../../utils/hooks/redux/redux-toolkit-hooks';
 import './OrderForm.css';
 
 export interface IOrderFormData {
+    _id?: string;
     name: string;
     email: string;
     phone: number;
     quantity: number;
 }
 
-interface IModalProps<T> {
-    addContact(contact: T): void;
-    handleCloseOrderForm?(): void;
+interface IFormProps {
+    _id?: string;
+    formDispatchActionHandler(data: IOrderFormData, id?: string): Promise<void>;
+    initialState: IOrderFormData;
+    historyPath: string;
 }
 
-export const OrderForm = (props: IModalProps<IOrderFormData>) => {
-    const dispatch = useAppDispatch();
-
+export const OrderForm = (props: IFormProps) => {
     const history = useHistory();
 
-    function handleCloseOrderForm(): void {
-        dispatch(deactivateOrderModal());
-    }
-
-    const [orderData, setOrderData] = useState<IOrderFormData>({
-        name: '',
-        email: '',
-        phone: 0,
-        quantity: 0,
-    });
+    const [formData, setFormData] = useState<IOrderFormData>(
+        props.initialState
+    );
 
     const handleChange = (event: { target: { name: any; value: any } }) => {
-        setOrderData({
-            ...orderData,
+        setFormData({
+            ...formData,
             [event.target.name]: event.target.value,
         });
     };
 
-    const handleSubmit = (event: { preventDefault: () => void }) => {
+    async function handleSubmit(event: {
+        preventDefault: () => void;
+    }): Promise<void> {
         // prevents the submit button from refreshing the page
         event.preventDefault();
+        try {
+            // props.retrieveFormData(orderData);
+            await props.formDispatchActionHandler(formData, props._id);
+            setFormData(props.initialState);
+            history.replace(props.historyPath);
+        } catch (error: any) {
+            console.log(error.message);
+        }
+    }
 
-        axiosPostHelperMethod<IOrderFormData>(
-            'http://localhost:7000/api/order/',
-            orderData
-        );
-
-        //props.addContact(orderData);
-        setOrderData({ name: '', email: '', phone: 0, quantity: 0 });
-        history.replace('/orders');
-    };
     return (
         <div className="form__wrapper">
-            <form onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <div className="form__header">
                     <h3>Order Form</h3>
                 </div>
@@ -65,7 +58,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                         type="text"
                         name="name"
                         placeholder="Shiba Kun"
-                        value={orderData.name}
+                        value={formData.name}
                         onChange={handleChange}
                     />
                 </div>
@@ -75,7 +68,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                         type="email"
                         name="email"
                         placeholder="shiba@email.com"
-                        value={orderData.email}
+                        value={formData.email}
                         onChange={handleChange}
                     />
                 </div>
@@ -85,7 +78,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                         type="phone"
                         name="phone"
                         placeholder="123456"
-                        value={orderData.phone}
+                        value={formData.phone}
                         onChange={handleChange}
                     />
                 </div>
@@ -95,7 +88,7 @@ export const OrderForm = (props: IModalProps<IOrderFormData>) => {
                         type="number"
                         name="quantity"
                         placeholder="1"
-                        value={orderData.quantity}
+                        value={formData.quantity}
                         onChange={handleChange}
                     />
                 </div>
