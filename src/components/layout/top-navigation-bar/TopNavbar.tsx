@@ -6,7 +6,7 @@ import { NavbarMenuContent } from '../../../utils/interfaces/navbar-menu-content
 import { MenuDropdown } from '../../menu-dropdown/MenuDropdown';
 import user_image from '../../../assets/images/shiba_inu_avatar.png';
 import './TopNavbar.css';
-import { faTh } from '@fortawesome/free-solid-svg-icons';
+import { faTh, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import {
     openSidebarMenu,
@@ -16,6 +16,8 @@ import {
     useAppDispatch,
     useAppSelector,
 } from '../../../utils/hooks/redux/redux-toolkit-hooks';
+import { useAuth0, User } from '@auth0/auth0-react';
+import { Button } from '../../button/Button';
 
 const current_user = {
     display_name: 'JSD User',
@@ -37,7 +39,7 @@ const UserMenuToggle = (props: CurrentUser): JSX.Element => {
 
 const UserMenu = (item: NavbarMenuContent, index: number): JSX.Element => {
     return (
-        <Link to="/" key={index}>
+        <Link to={item.linkPath} key={index}>
             <div className="top-navbar__notification-item">
                 <FontAwesomeIcon
                     icon={item.icon}
@@ -51,6 +53,7 @@ const UserMenu = (item: NavbarMenuContent, index: number): JSX.Element => {
 
 export const TopNavBar = (props: any): JSX.Element => {
     const isOpen = useAppSelector(selectSidebarMenuState);
+    const { logout } = useAuth0<User>();
     const navbarState = isOpen ? ' .open' : '';
 
     const dispatch = useAppDispatch();
@@ -72,7 +75,13 @@ export const TopNavBar = (props: any): JSX.Element => {
                         }
                     />
                 </div>
-                <div className="top-navbar__right-item"></div>
+                <div className="top-navbar__right-item">
+                    <Button
+                        title="Logout"
+                        icon={faSignOutAlt}
+                        onClick={logout}
+                    />
+                </div>
                 <div className="top-navbar__right-item"></div>
             </div>
         </div>
