@@ -1,17 +1,19 @@
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Button.css';
 
 interface IButtonProps {
-    handleCloseOrderForm?(): void;
+    onClick?(): void;
+    title: string;
+    icon: IconProp;
 }
 
-export const Button = (): JSX.Element => {
+export const Button = (props: IButtonProps): JSX.Element => {
     return (
         <div className="button__wrapper">
-            <button className="button">
-                <FontAwesomeIcon icon={faCartPlus} className="button__icon" />
-                <p>Add order</p>
+            <button className="button" onClick={props.onClick}>
+                <FontAwesomeIcon icon={props.icon} className="button__icon" />
+                <p>{props.title}</p>
             </button>
         </div>
     );
