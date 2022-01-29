@@ -1,16 +1,20 @@
-import {faUser, faCog, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCog, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { NavbarMenuContent } from '../utils/interfaces/navbar-menu-content.interface';
 
-export const NavbarMenuContentData = [
-	{
-		icon: faUser,
-		content: 'Profile',
-	},
-	{
-		icon: faCog,
-		content: 'Settings',
-	},
-	{
-		icon: faSignOutAlt,
-		content: 'Logout',
-	},
+export const NavbarMenuContentData: NavbarMenuContent[] = [
+    {
+        icon: faUser,
+        content: 'Profile',
+        linkPath: '/',
+    },
+    {
+        icon: faCog,
+        content: 'Settings',
+        linkPath: '/',
+    },
+    {
+        icon: faSignOutAlt,
+        content: 'Logout',
+        linkPath: '/',
+    },
 ];
