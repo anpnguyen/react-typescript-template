@@ -22,6 +22,7 @@ import {
     deleteOrderForApi,
     deleteOrderSelector,
 } from '../redux/order-api-calls/delete-api-call';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const renderOrderHead = (
     item: IRenderOrderHeaderProps,
@@ -153,7 +154,7 @@ const Orders = () => {
                 <h2 className="page-header">orders</h2>
                 <div>
                     <Link to="/create-order-form">
-                        <Button />
+                        <Button title="Add order" icon={faCartPlus} />
                     </Link>
                 </div>
             </div>
