@@ -16,12 +16,18 @@ export const initialState: IInitialState = {
     orders: [],
 };
 
-export function getOrdersFromApi() {
+export function getOrdersFromApi(getAccessToken?: Promise<string>) {
     return async (dispatch: any): Promise<void> => {
         dispatch(getOrdersCall());
         try {
+            const token = await getAccessToken;
             const response = await axios.get<IRenderOrderBodyProps>(
-                'http://localhost:7000/api/order/'
+                'http://localhost:7000/api/order/',
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             );
             const data: IRenderOrderBodyProps = response.data;
 
