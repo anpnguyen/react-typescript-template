@@ -23,6 +23,7 @@ import {
     deleteOrderSelector,
 } from '../redux/order-api-calls/delete-api-call';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { useAuth0, User } from '@auth0/auth0-react';
 
 const renderOrderHead = (
     item: IRenderOrderHeaderProps,
@@ -36,12 +37,16 @@ const renderOrderBody = (
     expandState: any[],
     expandedRows: string | string[],
     submitting: boolean,
-    dispatch: any
+    dispatch: any,
+    getAccessTokenSilently: Promise<string>
 ): JSX.Element => {
-    async function handleDelete(id: string): Promise<void> {
+    async function handleDelete(
+        id: string,
+        getAccessTokenSilently: Promise<string>
+    ): Promise<void> {
         try {
             //await fakeHttpCall(3000);
-            await dispatch(deleteOrderForApi(id));
+            await dispatch(deleteOrderForApi(id, getAccessTokenSilently));
             console.log('called');
 
             window.location.reload();
@@ -68,7 +73,9 @@ const renderOrderBody = (
                 <td>
                     <TableButton
                         title="Delete"
-                        onClick={() => handleDelete(item._id)}
+                        onClick={() =>
+                            handleDelete(item._id, getAccessTokenSilently)
+                        }
                     />
                 </td>
             </tr>
@@ -100,6 +107,7 @@ const renderOrderBody = (
 };
 
 const Orders = () => {
+    const { getAccessTokenSilently } = useAuth0<User>();
     const dispatch = useAppDispatch();
     const { loading, orders, getHasError } = useAppSelector(ordersSelector);
 
@@ -145,8 +153,8 @@ const Orders = () => {
     };
 
     useEffect(() => {
-        dispatch(getOrdersFromApi());
-    }, [dispatch]);
+        dispatch(getOrdersFromApi(getAccessTokenSilently()));
+    }, [dispatch, getAccessTokenSilently]);
 
     return (
         <div>
@@ -183,7 +191,8 @@ const Orders = () => {
                                             expandState,
                                             expandedRows,
                                             submitting,
-                                            dispatch
+                                            dispatch,
+                                            getAccessTokenSilently()
                                         )
                                     }
                                 />
