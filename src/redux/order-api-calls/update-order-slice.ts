@@ -14,15 +14,24 @@ export const initialState: IInitialState = {
     errorMessage: [],
 };
 
-export function updateOrderForApi(dataToApi: IOrderFormData, idToApi: string) {
+export function updateOrderForApi(
+    dataToApi: IOrderFormData,
+    idToApi: string,
+    getAccessToken?: Promise<string>
+) {
     return async (dispatch: any): Promise<void> => {
         dispatch(updateOrderCall());
         try {
-            const response = await axios.put<string>(
+            const token = await getAccessToken;
+            await axios.put<string>(
                 `http://localhost:7000/api/order/${idToApi}`,
-                dataToApi
+                dataToApi,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             );
-            console.log('RESPONSE', response);
 
             dispatch(updateOrderSuccess());
         } catch (error: any) {
