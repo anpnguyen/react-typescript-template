@@ -1,38 +1,37 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { NavbarMenuContentData } from '../../../data/top-navigation-bar-data.data';
-import { CurrentUser } from '../../../utils/interfaces/current-user.interface';
-import { NavbarMenuContent } from '../../../utils/interfaces/navbar-menu-content.interface';
-import { MenuDropdown } from '../../menu-dropdown/MenuDropdown';
-import user_image from '../../../assets/images/shiba_inu_avatar.png';
+import { NavbarMenuContentData } from '../../data/top-navigation-bar-data.data';
+import { CurrentUser } from '../../utils/interfaces/current-user.interface';
+import { NavbarMenuContent } from '../../utils/interfaces/navbar-menu-content.interface';
+import { MenuDropdown } from '../menu-dropdown/MenuDropdown';
+//import user_image from '../../../assets/images/shiba_inu_avatar.png';
 import './TopNavbar.css';
 import { faTh, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 import {
     openSidebarMenu,
     selectSidebarMenuState,
-} from '../../../redux/sidebar-menu/sidebar-menu-slice';
+} from '../../redux/sidebar-menu/sidebar-menu-slice';
 import {
     useAppDispatch,
     useAppSelector,
-} from '../../../utils/hooks/redux/redux-toolkit-hooks';
+} from '../../utils/hooks/redux/redux-toolkit-hooks';
 import { useAuth0, User } from '@auth0/auth0-react';
-import { Button } from '../../button/Button';
+import { Button } from '../button/Button';
 
-const current_user = {
-    display_name: 'JSD User',
-    image: user_image,
-};
+// const current_user = {
+//     display_name: 'JSD User',
+//     image: user_image,
+// };
 
-const UserMenuToggle = (props: CurrentUser): JSX.Element => {
+const UserMenuToggle = (): JSX.Element => {
+    const { user } = useAuth0<User>();
     return (
         <div className="top-navbar__right-user">
             <div className="top-navbar__right-user__image">
-                <img src={props.image} alt="user" />
+                <img src={user?.picture} alt="user" />
             </div>
-            <div className="top-navbar__right-user__name">
-                {props.display_name}
-            </div>
+            <div className="top-navbar__right-user__name">{user?.nickname}</div>
         </div>
     );
 };
@@ -68,7 +67,7 @@ export const TopNavBar = (props: any): JSX.Element => {
             <div className="top-navbar__right">
                 <div className="top-navbar__right-item">
                     <MenuDropdown
-                        customToggle={() => UserMenuToggle(current_user)}
+                        customToggle={() => UserMenuToggle()}
                         contentData={NavbarMenuContentData}
                         renderItems={(item: NavbarMenuContent, index: number) =>
                             UserMenu(item, index)
