@@ -15,12 +15,21 @@ export const initialState: IInitialState = {
     errorMessage: [],
 };
 
-export function deleteOrderForApi(idToApi: string) {
+export function deleteOrderForApi(
+    idToApi: string,
+    getAccessToken?: Promise<string>
+) {
     return async (dispatch: any): Promise<void> => {
         dispatch(deleteOrderCall());
         try {
+            const token = await getAccessToken;
             const response = await axios.delete<string>(
-                `http://localhost:7000/api/order/${idToApi}`
+                `http://localhost:7000/api/order/${idToApi}`,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             );
             console.log('RESPONSE', response);
 
