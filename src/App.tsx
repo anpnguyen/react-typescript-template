@@ -4,10 +4,10 @@ import { Layout } from './components/layout/Layout';
 import LandingPage from './pages/LandingPage';
 import { useAuth0, User } from '@auth0/auth0-react';
 
-function App() {
+function App(): JSX.Element {
     const { isAuthenticated } = useAuth0<User>();
 
-    const userLogedIn = isAuthenticated;
+    const userLogedIn: boolean = isAuthenticated;
     return (
         <div className="App">{userLogedIn ? <Layout /> : <LandingPage />}</div>
     );

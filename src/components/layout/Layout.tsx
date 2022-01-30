@@ -6,7 +6,7 @@ import { useAppSelector } from '../../utils/hooks/redux/redux-toolkit-hooks';
 import { Sidebar } from '../sidebar/Sidebar';
 
 import './Layout.css';
-import { TopNavBar } from './top-navigation-bar/TopNavbar';
+import { TopNavBar } from '../top-navigation-bar/TopNavbar';
 
 export const Layout = (): JSX.Element => {
     const isOpen = useAppSelector(selectSidebarMenuState);

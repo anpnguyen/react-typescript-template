@@ -26,7 +26,7 @@ const CreateOrderFormPage = () => {
     let initialState = {
         name: '',
         email: '',
-        phone: '',
+        phone: 0,
         quantity: 0,
     };
     const historyPath = '/orders';
