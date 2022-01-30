@@ -1,3 +1,4 @@
+import { useAuth0, User } from '@auth0/auth0-react';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { IOrderFormData, OrderForm } from '../components/order-form/OrderForm';
@@ -5,6 +6,7 @@ import { updateOrderForApi } from '../redux/order-api-calls/update-order-slice';
 import { useAppDispatch } from '../utils/hooks/redux/redux-toolkit-hooks';
 
 const UpdateOrderFormPage = () => {
+    const { getAccessTokenSilently } = useAuth0<User>();
     let location = useLocation<IOrderFormData>();
     const id: string = location.state._id as string;
     const state: IOrderFormData = location.state;
@@ -23,7 +25,9 @@ const UpdateOrderFormPage = () => {
     async function formActionDispatchHandler(
         formData: IOrderFormData
     ): Promise<void> {
-        await dispatch(updateOrderForApi(formData, id));
+        await dispatch(
+            updateOrderForApi(formData, id, getAccessTokenSilently())
+        );
     }
 
     return (
