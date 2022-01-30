@@ -17,15 +17,24 @@ export const initialState: IInitialState = {
     order: [],
 };
 
-export function createOrderForApi(dataToApi: IOrderFormData) {
+export function createOrderForApi(
+    dataToApi: IOrderFormData,
+    getAccessToken?: Promise<string>
+) {
     return async (dispatch: any): Promise<void> => {
         dispatch(createOrderCall());
         try {
+            const token = await getAccessToken;
+
             const response = await axios.post<IOrderFormData>(
                 'http://localhost:7000/api/order/',
-                dataToApi
+                dataToApi,
+                {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                }
             );
-            console.log('RESPONSE', response);
 
             const data: IOrderFormData = response.data;
 
