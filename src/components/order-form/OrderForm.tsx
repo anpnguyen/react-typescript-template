@@ -24,10 +24,19 @@ export const OrderForm = (props: IFormProps) => {
         props.initialState
     );
 
-    const handleChange = (event: { target: { name: any; value: any } }) => {
+    const handleChange = (event: { target: { name: string; value: any } }) => {
         setFormData({
             ...formData,
             [event.target.name]: event.target.value,
+        });
+    };
+
+    const handleChangeNumber = (event: {
+        target: { name: any; valueAsNumber: any };
+    }) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.valueAsNumber,
         });
     };
 
@@ -75,11 +84,11 @@ export const OrderForm = (props: IFormProps) => {
                 <div className="form__item">
                     <label htmlFor="phone">Phone:</label>
                     <input
-                        type="phone"
+                        type="number"
                         name="phone"
                         placeholder="123456"
                         value={formData.phone}
-                        onChange={handleChange}
+                        onChange={handleChangeNumber}
                     />
                 </div>
                 <div className="form__item">
@@ -89,7 +98,7 @@ export const OrderForm = (props: IFormProps) => {
                         name="quantity"
                         placeholder="1"
                         value={formData.quantity}
-                        onChange={handleChange}
+                        onChange={handleChangeNumber}
                     />
                 </div>
                 <div className="button_form__wrapper">
