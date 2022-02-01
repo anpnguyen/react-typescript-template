@@ -1,0 +1,65 @@
+.accordion {
+    background-color: rgba(95, 158, 160, 0.219);
+}
+.accordion:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.accordion:last-child {
+    border-radius: 0 0 5px 5px;
+}
+
+.accordion__header {
+    display: flex;
+    gap: 32px;
+    overflow: hidden;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 22px 0;
+}
+
+.accordion__header:hover {
+    background-color: rgba(95, 158, 160, 0.726);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.accordion__header > div > P {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.accordion__content {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+    padding: 32px;
+}
+
+.accordion__content___image > img {
+    width: 50%;
+    width: 50%;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow-light);
+}
+.accordion__content___items {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.accordion__content___items > p {
+    text-align: justify;
+}
+
+.accordion__content___buttons {
+    display: flex;
+    gap: 32px;
+}
+
+@media only screen and (min-width: 750px) {
+    .accordion__content {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
