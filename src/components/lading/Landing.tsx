@@ -6,7 +6,7 @@ import './Landing.css';
 export default function Landing() {
     const { loginWithRedirect } = useAuth0<User>();
     return (
-        <main>
+        <main className="landing">
             <div className="landing_container">
                 <div className="landing_header">
                     <h1>Hi there welcome to JSD Dev Hub.</h1>
