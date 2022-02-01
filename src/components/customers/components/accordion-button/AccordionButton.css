@@ -1,0 +1,42 @@
+.accordion__button {
+    border: 0;
+    outline: 0;
+    /* background-color: #1976d2; */
+    color: #fff;
+    font-size: 1.25rem;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.accordion__button.edit {
+    background-color: var(--main-color-blue);
+}
+
+.accordion__button.edit:hover {
+    /* background-color: #2b92f7; */
+    background-color: var(--second-color-blue);
+}
+
+.accordion__button.delete {
+    background-color: var(--main-color-red);
+}
+
+.accordion__button.delete:hover {
+    /* background-color: #2b92f7; */
+    background-color: var(--second-color-red);
+}
+
+.accordion__button___icon {
+}
+
+.icon {
+    font-size: 16px;
+}
+
+.accordion__button___text {
+}
