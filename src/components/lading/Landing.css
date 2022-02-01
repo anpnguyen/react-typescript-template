@@ -1,31 +1,34 @@
+.landing {
+    width: 50%;
+}
+
 .landing_container {
-    background: url(../../assets/images/bg_1.jpg) no-repeat;
+    background: var(--main-bg-dark);
     background-size: cover;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
-.landing_header{
+.landing_header {
     align-self: center;
     font-weight: 300px;
 }
 
-.landing_header h1{
-    font-size: 64px;
+.landing_header h1 {
+    font-size: 44px;
     color: white;
     font-weight: 500;
 }
 
 .landing_header p {
-    font-size: 32px;
+    font-size: 22px;
     color: white;
     font-weight: 300;
 }
 
-.landing_button{
+.landing_button {
     margin-top: 32px;
     align-self: center;
 }
