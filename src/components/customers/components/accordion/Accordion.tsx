@@ -4,10 +4,10 @@ import AccordionButton from '../accordion-button/AccordionButton';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './Accordion.css';
 
-export default function Accordion(data: IAccordionData): JSX.Element {
+export default function Accordion(data: any): JSX.Element {
     const [isActive, setIsActive] = useState(false);
 
-    const { id, title, info, image, content } = data;
+    const { id, title, info, image, content } = data.data;
     return (
         <div className="accordion">
             <div
