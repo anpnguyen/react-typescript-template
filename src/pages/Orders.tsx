@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../components/button/Button';
 import { SpinnerLoader } from '../components/loader/SpinnerLoader';
-import { Table } from '../components/table/Table';
-import { latestOrders } from '../data/dummy-orders';
 import {
     useAppDispatch,
     useAppSelector,
 } from '../utils/hooks/redux/redux-toolkit-hooks';
-import {
-    IRenderOrderBodyProps,
-    IRenderOrderHeaderProps,
-} from '../utils/interfaces/order/order.interface';
-import { TableButton } from '../components/table-button/TableButton';
+import { IRenderOrderBodyProps } from '../utils/interfaces/order/order.interface';
 import { Link } from 'react-router-dom';
-import { fakeHttpCall } from '../utils/hooks/mocks/mock-http.helper';
+//import { fakeHttpCall } from '../utils/hooks/mocks/mock-http.helper';
 import {
     getOrdersFromApi,
     ordersSelector,
@@ -24,87 +18,7 @@ import {
 } from '../redux/order-api-calls/delete-api-call';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useAuth0, User } from '@auth0/auth0-react';
-
-const renderOrderHead = (
-    item: IRenderOrderHeaderProps,
-    index: number
-): JSX.Element => <th key={index}>{item}</th>;
-
-const renderOrderBody = (
-    item: IRenderOrderBodyProps,
-    index: number,
-    handleExpandRow: (dataId: string) => void,
-    expandState: any[],
-    expandedRows: string | string[],
-    submitting: boolean,
-    dispatch: any,
-    getAccessTokenSilently: Promise<string>
-): JSX.Element => {
-    async function handleDelete(
-        id: string,
-        getAccessTokenSilently: Promise<string>
-    ): Promise<void> {
-        try {
-            //await fakeHttpCall(3000);
-            await dispatch(deleteOrderForApi(id, getAccessTokenSilently));
-            console.log('called');
-
-            window.location.reload();
-        } catch (error: any) {
-            console.log(error.message);
-        }
-    }
-    return (
-        <React.Fragment key={index}>
-            <tr>
-                <td>{item._id}</td>
-                <td>{item.name}</td>
-                <td>
-                    <TableButton
-                        title={`${
-                            expandState[item._id as unknown as number]
-                                ? 'Hide'
-                                : 'Show'
-                        }`}
-                        onClick={() => handleExpandRow(item._id)}
-                        submitting={submitting}
-                    />
-                </td>
-                <td>
-                    <TableButton
-                        title="Delete"
-                        onClick={() =>
-                            handleDelete(item._id, getAccessTokenSilently)
-                        }
-                    />
-                </td>
-            </tr>
-            {expandedRows.includes(item._id) ? (
-                <>
-                    <tr>
-                        <td>
-                            <p>Phone: {item.phone}</p>
-                        </td>
-                        <td>
-                            <p>Quantity: {item.quantity}</p>
-                        </td>
-                        <td></td>
-                        <td>
-                            <Link
-                                to={{
-                                    pathname: '/update-order-form',
-                                    state: item,
-                                }}
-                            >
-                                <TableButton title="Update" />
-                            </Link>
-                        </td>
-                    </tr>
-                </>
-            ) : null}
-        </React.Fragment>
-    );
-};
+import Accordion from '../components/customers/components/accordion/Accordion';
 
 const Orders = () => {
     const { getAccessTokenSilently } = useAuth0<User>();
@@ -126,32 +40,6 @@ const Orders = () => {
 
     // getSimulator();
 
-    const [expandedRows, setExpandedRows] = useState<string[]>([]);
-    const [expandState, setExpandState] = useState<any>({});
-
-    //const [submitting, setSubmitting] = useState<boolean>(false);
-
-    /**
-     * This function gets called when show/hide link is clicked.
-     */
-    const handleExpandRow = (dataId: string) => {
-        const currentExpandedRows: string[] = expandedRows;
-        const isRowExpanded: boolean = currentExpandedRows.includes(dataId);
-
-        let obj = {};
-        //@ts-ignore
-        isRowExpanded ? (obj[dataId] = false) : (obj[dataId] = true);
-        setExpandState(obj);
-
-        // If the row is expanded, we are here to hide it. Hence remove
-        // it from the state variable. Otherwise add to it.
-        const newExpandedRows: string[] = isRowExpanded
-            ? currentExpandedRows.filter((id: string) => id !== dataId)
-            : currentExpandedRows.concat(dataId);
-
-        setExpandedRows(newExpandedRows);
-    };
-
     useEffect(() => {
         dispatch(getOrdersFromApi(getAccessTokenSilently()));
     }, [dispatch, getAccessTokenSilently]);
@@ -170,33 +58,19 @@ const Orders = () => {
                 <div className="col-12">
                     <div className="card">
                         <div className="card__body">
-                            {loading ? (
-                                <SpinnerLoader />
-                            ) : (
-                                <Table
-                                    headData={latestOrders.header}
-                                    renderHead={(
-                                        item: IRenderOrderHeaderProps,
-                                        index: number
-                                    ) => renderOrderHead(item, index)}
-                                    bodyData={order}
-                                    renderBody={(
-                                        item: IRenderOrderBodyProps,
-                                        index: number
-                                    ) =>
-                                        renderOrderBody(
-                                            item,
-                                            index,
-                                            handleExpandRow,
-                                            expandState,
-                                            expandedRows,
-                                            submitting,
-                                            dispatch,
-                                            getAccessTokenSilently()
-                                        )
-                                    }
-                                />
-                            )}
+                            {loading && <SpinnerLoader />}
+                            {orders.map((order) => {
+                                const data = {
+                                    id: order._id,
+                                    title: order.name,
+                                    info: order.phone,
+                                    image: 'https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg',
+                                    content: `The history of exploration across nations and across time is not one where nations said, 'Let's explore because it's fun.' It was, 'Let's explore so that we can claim lands for our country, so that we can open up new trade routes; let's explore so we can become more powerful.'`,
+                                };
+                                return (
+                                    <Accordion key={order._id} data={data} />
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
