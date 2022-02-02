@@ -1,10 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
-import Customers from '../pages/Customers';
-import Dashboard from '../pages/Dashboard';
-import CreateOrderFormPage from '../pages/CreateOrderFormPage';
-import Orders from '../pages/Orders';
-import Products from '../pages/Products';
-import UpdateOrderFormPage from '../pages/UpdateOrderFormPage';
+import Customers from '../pages/private/Customers';
+import Dashboard from '../pages/private/Dashboard';
+import CreateOrderFormPage from '../pages/private/CreateOrderFormPage';
+import Orders from '../pages/private/Orders';
+import Products from '../pages/private/Products';
+import UpdateOrderFormPage from '../pages/private/UpdateOrderFormPage';
 
 export const MainRoutes = (): JSX.Element => {
     return (

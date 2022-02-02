@@ -4,13 +4,15 @@
     /* background-color: #1976d2; */
     color: #fff;
     font-size: 1.25rem;
-    padding: 1rem 2rem;
+    /* padding: 1rem 2rem; */
+    padding: 0.8rem 1.4rem;
     border-radius: 5px;
     display: flex;
     align-items: center;
     gap: 12px;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    box-shadow: var(--box-shadow-dark);
 }
 
 .accordion__button.edit {
@@ -27,8 +29,15 @@
 }
 
 .accordion__button.delete:hover {
-    /* background-color: #2b92f7; */
     background-color: var(--second-color-red);
+}
+
+.accordion__button.hire {
+    background-color: #5865f2;
+}
+
+.accordion__button.hire:hover {
+    background-color: #5865f2cc;
 }
 
 .accordion__button___icon {

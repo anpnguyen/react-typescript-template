@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IAccordionData } from '../../../../pages/Customers';
+import { IAccordionData } from '../../../../pages/private/Customers';
 import AccordionButton from '../accordion-button/AccordionButton';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './Accordion.css';
