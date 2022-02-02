@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react';
-import { Button } from '../components/button/Button';
-import { SpinnerLoader } from '../components/loader/SpinnerLoader';
+import { Button } from '../../components/button/Button';
+import { SpinnerLoader } from '../../components/loader/SpinnerLoader';
 import {
     useAppDispatch,
     useAppSelector,
-} from '../utils/hooks/redux/redux-toolkit-hooks';
-import { IRenderOrderBodyProps } from '../utils/interfaces/order/order.interface';
+} from '../../utils/hooks/redux/redux-toolkit-hooks';
+import { IRenderOrderBodyProps } from '../../utils/interfaces/order/order.interface';
 import { Link } from 'react-router-dom';
 //import { fakeHttpCall } from '../utils/hooks/mocks/mock-http.helper';
 import {
     getOrdersFromApi,
     ordersSelector,
-} from '../redux/order-api-calls/get-orders-slice';
+} from '../../redux/order-api-calls/get-orders-slice';
 import {
     deleteOrderForApi,
     deleteOrderSelector,
-} from '../redux/order-api-calls/delete-api-call';
+} from '../../redux/order-api-calls/delete-api-call';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useAuth0, User } from '@auth0/auth0-react';
-import Accordion from '../components/customers/components/accordion/Accordion';
+import Accordion from '../../components/customers/components/accordion/Accordion';
 
 const Orders = () => {
     const { getAccessTokenSilently } = useAuth0<User>();
