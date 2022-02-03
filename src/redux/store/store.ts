@@ -5,6 +5,7 @@ import getOrdersReducer from '../order-api-calls/get-orders-slice';
 import createOrderReducer from '../order-api-calls/create-order-slice';
 import deleteOrderReducer from '../order-api-calls/delete-api-call';
 import updateOrderReducer from '../order-api-calls/update-order-slice';
+import userFilterMenuReducer from '../user-filter-menu/user-filter-menu-slice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         creteOrder: createOrderReducer,
         deleteOrder: deleteOrderReducer,
         updateOrder: updateOrderReducer,
+        userFilterMenu: userFilterMenuReducer,
     },
     devTools: true,
 });

@@ -10,7 +10,7 @@ const initialState: SidebarMenuState = {
 };
 
 export const sidebarMenuSlice = createSlice({
-    name: 'sidebarMenu',
+    name: 'userFilterMenu',
     initialState: initialState,
     reducers: {
         openSidebarMenu: (state) => {
