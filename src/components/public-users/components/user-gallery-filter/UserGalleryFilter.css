@@ -1,0 +1,46 @@
+.gallery-filter {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 32px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow-dark);
+}
+
+.gallery-filter__header > h1 {
+    font-size: 22px;
+    color: var(--main-color);
+}
+
+.gallery-filter__filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.gallery-filter__filters > label {
+    text-align: left;
+    height: 100%;
+    font-size: 1.2rem;
+}
+
+.gallery-filter__filters > label > select {
+    height: 100%;
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-top: 12px;
+    border-radius: calc(var(--border-radius) - 10px);
+
+    color: var(--txt-color);
+    background-color: var(--main-bg);
+}
+
+.gallery-filter__filters > label > select > option {
+}
